@@ -9,6 +9,7 @@ import { CartIcon } from '../components/CartIcon.js';
 import { CartProvider } from '../CartContext.js';
 import Home from '../screens/Home';
 
+import Payments from '../screens/Payments.js';
 import HomeScreen from '../screens/Home';
 
 const Stack = createStackNavigator();
@@ -20,19 +21,25 @@ export default function UserStack() {
         <Stack.Navigator>
           <Stack.Screen name='Home' component={Home} 
             options={({ navigation }) => ({
-              title: 'Home',
+              title: 'Цветы в г.Орск',
               headerTitleStyle: styles.headerTitle,
               headerRight: () => <CartIcon navigation={navigation}/>
             })}/>
             <Stack.Screen name='ProductDetails' component={ProductDetails} 
             options={({ navigation }) => ({
-              title: 'Product details',
+              title: 'Детали продукта',
               headerTitleStyle: styles.headerTitle,
               headerRight: () => <CartIcon navigation={navigation}/>,
             })} />
             <Stack.Screen name='Cart' component={Cart} 
             options={({ navigation }) => ({
-              title: 'My cart',
+              title: 'Корзина',
+              headerTitleStyle: styles.headerTitle,
+              headerRight: () => <CartIcon navigation={navigation}/>,
+            })} />
+            <Stack.Screen name='Payments' component={Payments} 
+            options={({ navigation }) => ({
+              title: 'Оформление заказа',
               headerTitleStyle: styles.headerTitle,
               headerRight: () => <CartIcon navigation={navigation}/>,
             })} />
@@ -44,6 +51,7 @@ export default function UserStack() {
 
 const styles = StyleSheet.create({
   headerTitle: {
-    fontSize: 20
+    fontSize: 22,
+    color: '#565656'
   }
 });

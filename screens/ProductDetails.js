@@ -7,7 +7,8 @@ import {
   SafeAreaView, 
   Button, 
   StyleSheet,
-  Pressable
+  Pressable,
+  Alert
   } from 'react-native';
 import { getProduct } from '../services/ProductsService.js';
 import { CartContext } from '../CartContext';
@@ -23,6 +24,7 @@ export function ProductDetails({route}) {
 
   function onAddToCart() {
     addItemToCart(product.id);
+    Alert.alert('Добавлено в корзину!');
   }
 
   return (
@@ -34,7 +36,7 @@ export function ProductDetails({route}) {
         />
         <View style={styles.infoContainer}>
           <Text style={styles.name}>{product.name}</Text>
-          <Text style={styles.price}>$ {product.price}</Text>
+          <Text style={styles.price}>₽ {product.price}</Text>
           <Text style={styles.description}>{product.description}</Text>
             <Pressable style={styles.btnPress} onPress={onAddToCart}>
               <Text style={styles.btnText}>Добавить в корзину</Text>
