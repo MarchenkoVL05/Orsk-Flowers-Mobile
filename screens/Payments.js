@@ -23,7 +23,7 @@ export default function Payments() {
   const {getProductsInCart, getItemsCount, getTotalPrice} = useContext(CartContext);
 
   function callDelivery() {
-    const to = ['BITcheat@mail.ru', 'Shamoointhedark@gmail.com']
+    const to = ['Korotaevm97@gmail.com']
     email(to, {
       // Optional additional arguments
       body: `Новый заказ! Товар: ${getProductsInCart()},
