@@ -26,8 +26,9 @@ export function CartProvider(props) {
           });
       }
     });
-}
-function getItemsCount() {
+  }
+
+  function getItemsCount() {
       return items.reduce((sum, item) => (sum + item.qty), 0);
   }
 
@@ -35,9 +36,17 @@ function getItemsCount() {
       return items.reduce((sum, item) => (sum + item.totalPrice), 0);
   }  
 
+  function getProductsInCart() {
+    let productsInCart = [];
+    for (let i = 0; i < items.length; i++) {
+      productsInCart.push(items[i].product.name);
+    }
+    return productsInCart.join();
+  }
+
   return (
     <CartContext.Provider 
-      value={{items, setItems, getItemsCount, addItemToCart, getTotalPrice}}>
+      value={{items, setItems, getItemsCount, addItemToCart, getTotalPrice, getProductsInCart}}>
       {props.children}
     </CartContext.Provider>
   );

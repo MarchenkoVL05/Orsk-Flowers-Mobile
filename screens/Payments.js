@@ -1,5 +1,10 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, SafeAreaView, StyleSheet, Pressable, Alert} from 'react-native';
+
+import email from 'react-native-email';
+
+import { useAuthentication } from '../utils/hooks/useAuthentication';
+import { CartContext } from '../CartContext';
 
 export default function Payments() {
   const [name, onChangeName] = React.useState();
@@ -13,13 +18,30 @@ export default function Payments() {
     setChecked(prevState => !prevState);
   }
 
+  const { user } = useAuthentication();
+
+  const {getProductsInCart, getItemsCount, getTotalPrice} = useContext(CartContext);
+
   function callDelivery() {
-    Alert.alert(name)
+    const to = ['BITcheat@mail.ru', 'Shamoointhedark@gmail.com']
+    email(to, {
+      // Optional additional arguments
+      body: `Новый заказ! Товар: ${getProductsInCart()},
+                          Количество букетов: ${getItemsCount()},
+                          Сумма: ${getTotalPrice()},
+                          Имя клиента: ${name},
+                          Почта клиента: ${user.email},
+                          Номер для связи: ${phone},
+                          Адрес доставки: ${adress},
+                          Удобное время: ${time}
+                          Наличными курьеру: ${checked ? 'да' : 'нет, оплачено по номеру карты'}
+      `
+    }).catch(console.error)
   }
   
   return (
-    <View>
-      <SafeAreaView style={styles.mainContainer}>
+    <View style={styles.containerWrapper}>
+      <SafeAreaView style={styles.container}>
         <TextInput
           style={styles.input}
           value={name}
@@ -48,7 +70,7 @@ export default function Payments() {
       </SafeAreaView>
 
       <Text style={styles.payText}>Способ оплаты</Text>
-      <Pressable style={checked ? styles.radio : styles.radioTwo} onPress={changingRadio}></Pressable>
+      <Pressable style={checked ? styles.radioTwo : styles.radio} onPress={changingRadio}></Pressable>
       <Text style={styles.radioText}>Наличными курьеру</Text>
 
       <Text style={styles.radioText}>Перевод на карту: 4242 XXXX XXXX XX42</Text>
@@ -63,7 +85,11 @@ export default function Payments() {
 }
 
 const styles = StyleSheet.create({
-  mainContainer: {
+  containerWrapper: {
+    marginTop: 30,
+  },
+
+  container: {
     justifyContent: 'center',
     alignItems: 'center',
   },
