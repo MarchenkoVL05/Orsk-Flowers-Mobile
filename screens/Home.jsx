@@ -6,6 +6,8 @@ import { signOut, getAuth } from 'firebase/auth';
 import { Product } from '../components/Product.js';
 import { getProducts } from '../services/ProductsService';
 
+import { LinearGradient } from 'expo-linear-gradient';
+
 const auth = getAuth();
 
 
@@ -58,7 +60,7 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: '#f7d2dd'
+    backgroundColor: '#ffe8ef'
   },
 
   headerContainer: {
@@ -94,7 +96,7 @@ const styles = StyleSheet.create({
   },
 
   productsList: {
-    backgroundColor: '#f7d2dd',
+    backgroundColor: '#ffe8ef',
   },
 
   mainContainer: {

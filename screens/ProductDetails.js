@@ -12,6 +12,9 @@ import {
   } from 'react-native';
 import { getProduct } from '../services/ProductsService.js';
 import { CartContext } from '../CartContext';
+
+import { LinearGradient } from 'expo-linear-gradient';
+
 export function ProductDetails({route}) {
   const { productId } = route.params;
   const [product, setProduct] = useState({});
@@ -28,7 +31,7 @@ export function ProductDetails({route}) {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.main}>
       <ScrollView>
         <Image
           style={styles.image}
@@ -38,15 +41,20 @@ export function ProductDetails({route}) {
           <Text style={styles.name}>{product.name}</Text>
           <Text style={styles.price}>₽ {product.price}</Text>
           <Text style={styles.description}>{product.description}</Text>
-            <Pressable style={styles.btnPress} onPress={onAddToCart}>
-              <Text style={styles.btnText}>Добавить в корзину</Text>
-            </Pressable>
+          <Pressable style={styles.btnPress} onPress={onAddToCart}>
+            <Text style={styles.btnText}>Добавить в корзину</Text>
+          </Pressable>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
 const styles = StyleSheet.create({
+  main: {
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+
   card: {
     backgroundColor: 'white',
     borderRadius: 16,
@@ -103,5 +111,11 @@ const styles = StyleSheet.create({
     height: 50,
     width: 350,
     borderRadius: 10,
+  },
+
+  gradient: {
+    flex: 1,
+    justifyContent: 'center',
+    alignContent: 'center',
   }
 });

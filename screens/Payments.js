@@ -26,14 +26,14 @@ export default function Payments() {
     const to = ['Korotaevm97@gmail.com']
     email(to, {
       // Optional additional arguments
-      body: `Новый заказ! Товар: ${getProductsInCart()},
-                          Количество букетов: ${getItemsCount()},
-                          Сумма: ${getTotalPrice()},
-                          Имя клиента: ${name},
-                          Почта клиента: ${user.email},
-                          Номер для связи: ${phone},
-                          Адрес доставки: ${adress},
-                          Удобное время: ${time}
+      body: `Новый заказ!<br \/>Товар: ${getProductsInCart()}<br \/>
+                          Количество букетов: ${getItemsCount()}<br \/>
+                          Сумма: ${getTotalPrice()}<br \/>
+                          Имя клиента: ${name}<br \/>
+                          Почта клиента: ${user.email}<br \/>
+                          Номер для связи: ${phone}<br \/>
+                          Адрес доставки: ${adress}<br \/>
+                          Удобное время: ${time}<br \/>
                           Наличными курьеру: ${checked ? 'да' : 'нет, оплачено по номеру карты'}
       `
     }).catch(console.error)

@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, Button, FlatList, StyleSheet, Pressable, Alert } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { CartContext } from '../CartContext';
+
 export function Cart ({navigation}) {
-const {items, getItemsCount, getTotalPrice} = useContext(CartContext);
+const {items, getItemsCount, getTotalPrice, deleteItemsFromCart} = useContext(CartContext);
 
   function Totals() {
     let [total, setTotal] = useState(0);
@@ -10,13 +12,17 @@ const {items, getItemsCount, getTotalPrice} = useContext(CartContext);
       setTotal(getTotalPrice());
     });
     return (
-       <View style={styles.cartLineTotal}>
-          <Text style={[styles.lineLeft, styles.lineTotal]}>Total</Text>
-          <Text style={styles.lineRight}>₽ {total}</Text>
+       <View>
+          <View style={styles.cartLineTotal}>
+            <Text style={[styles.lineLeft, styles.lineTotal]}>Total</Text>
+            <Text style={styles.lineRight}>₽ {total}</Text>
+          </View>
+          <Button title="Очистить корзину" onPress={deleteItemsFromCart} color='#a010ff'/>
        </View>
     );
   }
-function renderItem({item}) {
+
+  function renderItem({item}) {
     return (
        <View style={styles.cartLine}>
           <Text style={styles.lineLeft}>{item.product.name} x {item.qty}</Text>
@@ -24,27 +30,34 @@ function renderItem({item}) {
        </View>
     );
   }
-function acceptPayments() {
-  navigation.navigate('Payments');
-}
+
+  function acceptPayments() {
+    navigation.navigate('Payments');
+  }
 
   return (
-    <View style={styles.mainView}>
-      <FlatList
-        style={styles.itemsList}
-        contentContainerStyle={styles.itemsListContainer}
-        data={items}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.product.id.toString()}
-        ListFooterComponent={Totals}
-      />
-      <Pressable style={styles.buyPress} onPress={acceptPayments}>
-              <Text style={styles.buyText}>Оформить заказ</Text>
-      </Pressable>
-    </View>
+    <LinearGradient style={styles.gradient} colors={['#fff', '#b0b0b04d', '#fff']}>
+      <View style={styles.mainView}>
+        <FlatList
+          style={styles.itemsList}
+          contentContainerStyle={styles.itemsListContainer}
+          data={items}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.product.id.toString()}
+          ListFooterComponent={Totals}
+        />
+        <Pressable style={styles.buyPress} onPress={acceptPayments}>
+                <Text style={styles.buyText}>Оформить заказ</Text>
+        </Pressable>
+      </View>
+    </LinearGradient>
   );
 }
 const styles = StyleSheet.create({
+  gradient: {
+    flex: 1,
+  },
+
   mainView: {
     flex: 1,
     alignItems: 'center',

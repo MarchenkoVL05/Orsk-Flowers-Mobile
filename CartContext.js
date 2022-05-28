@@ -1,4 +1,5 @@
 import React, {createContext, useState} from 'react';
+import { Alert } from 'react-native';
 import { getProduct } from './services/ProductsService.js';
 export const CartContext = createContext();
 export function CartProvider(props) {
@@ -44,9 +45,13 @@ export function CartProvider(props) {
     return productsInCart.join();
   }
 
+  function deleteItemsFromCart() {
+    setItems([]);
+  }
+
   return (
     <CartContext.Provider 
-      value={{items, setItems, getItemsCount, addItemToCart, getTotalPrice, getProductsInCart}}>
+      value={{items, setItems, getItemsCount, addItemToCart, deleteItemsFromCart, getTotalPrice, getProductsInCart}}>
       {props.children}
     </CartContext.Provider>
   );
