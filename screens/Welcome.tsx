@@ -7,10 +7,10 @@ const WelcomeScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.buttons}>
-        <Pressable style={styles.buttonIn} onPress={() => navigation.navigate('Sign In')}>
+        <Pressable style={styles.buttonIn} onPress={() => navigation.navigate('Вход')}>
           <Text style={styles.textIn}>Вход</Text>
         </Pressable>
-        <Pressable style={styles.button} onPress={() => navigation.navigate('Sign Up')}>
+        <Pressable style={styles.button} onPress={() => navigation.navigate('Регистрация')}>
           <Text style={styles.text}>Регистрация</Text>
         </Pressable>
       </View>

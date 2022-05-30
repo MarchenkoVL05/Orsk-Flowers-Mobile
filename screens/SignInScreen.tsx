@@ -49,7 +49,7 @@ const SignInScreen = () => {
         />
 
         <Input
-          placeholder='Password'
+          placeholder='Пароль'
           containerStyle={styles.control}
           value={value.password}
           onChangeText={(text) => setValue({ ...value, password: text })}
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    width: 200,
+    width: 250,
   },
 
   control: {

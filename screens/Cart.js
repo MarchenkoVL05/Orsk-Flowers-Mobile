@@ -14,7 +14,7 @@ const {items, getItemsCount, getTotalPrice, deleteItemsFromCart} = useContext(Ca
     return (
        <View>
           <View style={styles.cartLineTotal}>
-            <Text style={[styles.lineLeft, styles.lineTotal]}>Total</Text>
+            <Text style={[styles.lineLeft, styles.lineTotal]}>Всего: </Text>
             <Text style={styles.lineRight}>₽ {total}</Text>
           </View>
           <Button title="Очистить корзину" onPress={deleteItemsFromCart} color='#a010ff'/>

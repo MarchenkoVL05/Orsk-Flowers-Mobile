@@ -25,7 +25,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   
     try {
       await createUserWithEmailAndPassword(auth, value.email, value.password);
-      navigation.navigate('Sign In');
+      navigation.navigate('Вход');
     } catch (error:any) {
       setValue({
         ...value,
@@ -51,7 +51,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
         />
 
         <Input
-          placeholder='Password'
+          placeholder='Пароль'
           containerStyle={styles.control}
           value={value.password}
           onChangeText={(text) => setValue({ ...value, password: text })}

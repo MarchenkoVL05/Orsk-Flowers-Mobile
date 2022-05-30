@@ -9,7 +9,7 @@ export function CartIcon({navigation}) {
         onPress={() => {
           navigation.navigate('Cart');
         }}
-      >Cart ({getItemsCount()})</Text>
+      >Корзина ({getItemsCount()})</Text>
     </View>
   );
 }
