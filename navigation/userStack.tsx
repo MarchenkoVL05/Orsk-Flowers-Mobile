@@ -21,25 +21,25 @@ export default function UserStack() {
         <Stack.Navigator>
           <Stack.Screen name='Home' component={Home} 
             options={({ navigation }) => ({
-              title: 'Цветы в г.Орск',
+              title: 'Букеты',
               headerTitleStyle: styles.headerTitle,
               headerRight: () => <CartIcon navigation={navigation}/>
             })}/>
             <Stack.Screen name='ProductDetails' component={ProductDetails} 
             options={({ navigation }) => ({
-              title: 'Детали продукта',
+              title: 'Детали',
               headerTitleStyle: styles.headerTitle,
               headerRight: () => <CartIcon navigation={navigation}/>,
             })} />
             <Stack.Screen name='Cart' component={Cart} 
             options={({ navigation }) => ({
-              title: 'Корзина',
+              title: 'Добавлено',
               headerTitleStyle: styles.headerTitle,
               headerRight: () => <CartIcon navigation={navigation}/>,
             })} />
             <Stack.Screen name='Payments' component={Payments} 
             options={({ navigation }) => ({
-              title: 'Оформление заказа',
+              title: 'Оформление',
               headerTitleStyle: styles.headerTitle,
               headerRight: () => <CartIcon navigation={navigation}/>,
             })} />
@@ -52,6 +52,6 @@ export default function UserStack() {
 const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 22,
-    color: '#565656'
+    color: '#565656',
   }
 });

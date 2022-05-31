@@ -17,7 +17,8 @@ export default function Payments() {
   const [nameReceiver, onChangeNameReceiver] = React.useState();
   const [phoneReceiver, onChangePhoneReceiver] = React.useState();
 
-  const [checked, setChecked] = React.useState(false);
+  const [checked, setChecked] = React.useState(true);
+  const [transfer, setTransfer] = React.useState(false);
   const [pickup, setPickup] = React.useState(false);
   const [anon, setAnon] = React.useState(false);
 
@@ -33,6 +34,22 @@ export default function Payments() {
     setAnon(prevState => !prevState);
   }
 
+  function changingTransfer() {
+    setTransfer(prevState => !prevState);
+  }
+
+  React.useEffect(() => {
+    if (transfer) {
+      setChecked(false);
+    }
+  }, [transfer]);
+
+  React.useEffect(() => {
+    if (checked) {
+      setTransfer(false);
+    }
+  }, [checked]);
+
   const { user } = useAuthentication();
 
   const {getProductsInCart, getItemsCount, getTotalPrice} = useContext(CartContext);
@@ -45,18 +62,17 @@ export default function Payments() {
                           Количество букетов: ${getItemsCount()}<\/br>
                           Сумма: ${getTotalPrice()}<\/br>
                           <\/br>
-                          Имя клиента: ${name}<\/br>
-                          Почта клиента: ${user.email}<\/br>
+                          ${anon ? "Анонимно" : `Имя заказчика: ${name}`}<\/br>
+                          Почта заказчика: ${user.email}<\/br>
                           Номер для связи: ${phone}<\/br>
-                          Адрес доставки: ${pickup ? "Самовывоз" : adress}<\/br>
+                          ${pickup ? "Самовывоз" : `Aдрес доставки: ${adress}`}<\/br>
                           Удобное время: ${time}<\/br>
                           Комментарий: ${comment}<\/br>
                           <\/br>
-                          Отправить анонимно: ${anon ? 'да' : 'нет'}<\/br>
                           Имя получателя: ${nameReceiver}<\/br>
                           Телефон получатея: ${phoneReceiver}<\/br>
                           <\/br>
-                          Наличными курьеру: ${checked ? 'да' : 'нет, оплачено по номеру карты'}
+                          Оплата: ${checked ? "Наличными курьеру" : "Оплачено переводом"}
       `
     }).catch(console.error)
   }
@@ -64,12 +80,17 @@ export default function Payments() {
   return (
     <ScrollView style={styles.wrapper}>
       <SafeAreaView style={styles.container}>
-      <Text style={styles.clientText}>Заказчик</Text>
+        <Text style={styles.clientText}>Заказчик</Text>
+        <View style={[styles.radioContainer, {marginRight: 180, marginTop: 10}]}>
+          <Pressable style={anon ? styles.radioTwo : styles.radio} onPress={changingRadioAnon}></Pressable>
+          <Text style={[styles.radioText, {marginTop: 10}]}>Анонимно</Text>
+        </View>
         <TextInput
           style={styles.input}
           value={name}
           onChangeText={(newValue) => onChangeName(newValue)}
-          placeholder="Имя"
+          placeholder={anon ? '' : "Имя"}
+          editable={anon ? false : true}
         />
         <TextInput
           style={styles.input}
@@ -78,8 +99,10 @@ export default function Payments() {
           placeholder="Телефон"
           keyboardType="phone-pad"
         />
-        <Pressable style={[pickup ? styles.radioTwo : styles.radio, {marginRight: 320}]} onPress={changingRadioPickup}></Pressable>
-        <Text style={[styles.radioText, {marginRight: 230}]}>Самовывоз</Text>
+        <View style={[styles.radioContainer, {marginRight: 165}]}>
+          <Pressable style={pickup ? styles.radioTwo : styles.radio} onPress={changingRadioPickup}></Pressable>
+          <Text style={[styles.radioText, {marginTop: 10}]}>Самовывоз</Text>
+        </View>
 
         <TextInput
           style={styles.input}
@@ -104,8 +127,6 @@ export default function Payments() {
         />
 
         <Text style={styles.receiverText}>Получатель</Text>
-        <Pressable style={[anon ? styles.radioTwo : styles.radio, {marginRight: 320}]} onPress={changingRadioAnon}></Pressable>
-        <Text style={[styles.radioText, {marginRight: 220}]}>Отправить анонимно</Text>
         <TextInput
           style={styles.input}
           value={nameReceiver}
@@ -122,12 +143,16 @@ export default function Payments() {
 
 
         <Text style={styles.payText}>Способ оплаты</Text>
-        <Pressable style={[checked ? styles.radioTwo : styles.radio, {marginRight: 320}]} onPress={changingRadio}></Pressable>
-        <Text style={[styles.radioText, {marginRight: 220}]}>Наличными курьеру</Text>
+        <View style={[styles.radioContainer, {marginRight: 70, marginTop: 10}]}>
+          <Pressable style={checked ? styles.radioTwo : styles.radio} onPress={changingRadio}></Pressable>
+          <Text style={[styles.radioText, {marginTop: 10}]}>Наличными курьеру</Text>
+        </View>
 
-
-        <Text style={styles.cardText}>Перевод на карту: 4242 XXXX XXXX XX42</Text>
-      
+        <View style={[styles.radioContainer, {marginRight: 95, marginTop: 10}]}>
+          <Pressable style={transfer ? styles.radioTwo : styles.radio} onPress={changingTransfer}></Pressable>
+          <Text style={[styles.radioText, {marginTop: 10}]}>Перевод на карту</Text>
+        </View>
+        <Text style={[{fontSize: 18}]}>Visa: 4242 XXXX XXXX XX42</Text>
 
         <Pressable style={styles.buyPress} onPress={callDelivery}>
                 <Text style={styles.buyText}>Вызвать курьера</Text>
@@ -165,14 +190,12 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: '800',
     marginTop: 20,
-    marginRight: 90
   },
 
   radio: {
     width: 20,
     height: 20,
     backgroundColor: 'white',
-    marginLeft: 45,
     marginBottom: 7,
     marginTop: 20,
     borderColor: 'black',
@@ -184,7 +207,6 @@ const styles = StyleSheet.create({
     height: 20,
     backgroundColor: '#9dd558',
     marginTop: 20,
-    marginLeft: 45,
     marginBottom: 7,
     borderColor: 'black',
     borderWidth: 2,
@@ -193,8 +215,7 @@ const styles = StyleSheet.create({
   radioText: {
     fontSize: 20,
     color: 'black',
-    marginBottom: 30,
-    marginLeft: 35
+    marginLeft: 15
   },
 
   cardText: {
@@ -213,6 +234,7 @@ const styles = StyleSheet.create({
     width: 300,
     borderRadius: 10,
     marginBottom: 30,
+    marginTop: 20
   },
 
   buyText: {
@@ -225,15 +247,19 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: 'black',
     textAlign: 'center',
-    marginRight: 140
   },
 
   clientText: {
     fontSize: 30,
     color: 'black',
     textAlign: 'center',
-    marginRight: 180
   },
+
+  radioContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
 });
 
 
