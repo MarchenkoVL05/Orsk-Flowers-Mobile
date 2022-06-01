@@ -58,21 +58,18 @@ export default function Payments() {
     const to = ['Korotaevm97@gmail.com']
     email(to, {
       // Optional additional arguments
-      body: `Новый заказ!<br \/>Товар: ${getProductsInCart()}<\/br>
-                          Количество букетов: ${getItemsCount()}<\/br>
-                          Сумма: ${getTotalPrice()}<\/br>
-                          <\/br>
-                          ${anon ? "Анонимно" : `Имя заказчика: ${name}`}<\/br>
-                          Почта заказчика: ${user.email}<\/br>
-                          Номер для связи: ${phone}<\/br>
-                          ${pickup ? "Самовывоз" : `Aдрес доставки: ${adress}`}<\/br>
-                          Удобное время: ${time}<\/br>
-                          Комментарий: ${comment}<\/br>
-                          <\/br>
-                          Имя получателя: ${nameReceiver}<\/br>
-                          Телефон получатея: ${phoneReceiver}<\/br>
-                          <\/br>
-                          Оплата: ${checked ? "Наличными курьеру" : "Оплачено переводом"}
+      body: `Новый заказ!\r\nТовар: ${getProductsInCart()}\r\n
+      Количество букетов: ${getItemsCount()}\r\n
+      Сумма: ${getTotalPrice()}\r\n
+      ${anon ? "Анонимно\r\n" : `Имя заказчика: ${name}`}
+      Почта заказчика: ${user.email}
+      Номер заказчика: ${phone}
+      ${pickup ? "Самовывоз" : `Aдрес доставки: ${adress}`}\r\n
+      Удобное время: ${time}
+      Комментарий: ${comment}\r\n
+      Имя получателя: ${nameReceiver}
+      Телефон получатея: ${phoneReceiver}\r\n
+      Оплата: ${checked ? "Наличными курьеру" : "Оплачено переводом"}
       `
     }).catch(console.error)
   }
