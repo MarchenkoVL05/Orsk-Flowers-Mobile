@@ -1,3 +1,4 @@
+// Импорт библиотек
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -5,8 +6,10 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import React from 'react';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
+// Используем фунцию авторизации из API firebase
 const auth = getAuth();
 
+// Функция создания страницы Регистрации
 const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   const [value, setValue] = React.useState({
     email: '',
@@ -14,6 +17,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     error: ''
   })
 
+    // Функция Регистрации
   async function signUp() {
     if (value.email === '' || value.password === '') {
       setValue({
@@ -24,6 +28,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     }
   
     try {
+      // Фунцкия создания пользователя по email и паролю из api firebase
       await createUserWithEmailAndPassword(auth, value.email, value.password);
       navigation.navigate('Вход');
     } catch (error:any) {
@@ -34,6 +39,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
     }
   }
 
+  // Рендер страницы Регистраци
   return (
     <View style={styles.container}>
       {!!value.error && <View style={styles.error}><Text>{value.error}</Text></View>}
@@ -70,6 +76,7 @@ const SignUpScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   );
 }
 
+// Стили
 const styles = StyleSheet.create({
   container: {
     flex: 1,

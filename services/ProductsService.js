@@ -85,9 +85,13 @@ const PRODUCTS = [
     },
     
 ];
+
+// Функция по получению всех продуктов
 export function getProducts() {
     return PRODUCTS;
 }
+
+// Получить конкретный продукт по ID
 export function getProduct(id) {
     return PRODUCTS.find((product) => (product.id == id));
 }

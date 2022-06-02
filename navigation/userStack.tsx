@@ -1,21 +1,28 @@
+// Импорт React и библиотек
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+// Импорт компонентов 
 import { ProductDetails } from '../screens/ProductDetails.js';
 import { Cart } from '../screens/Cart.js';
 import { CartIcon } from '../components/CartIcon.js';
 import { CartProvider } from '../CartContext.js';
-import Home from '../screens/Home';
 
+// Импорт страниц
+import Home from '../screens/Home';
 import Payments from '../screens/Payments.js';
 import HomeScreen from '../screens/Home';
 
+//Создаём стек навигации
 const Stack = createStackNavigator();
 
+//Создание и экспорт стека пользователя
 export default function UserStack() {
+  //Рендер
   return (
+    //Оборачиваем компонент в проводник
     <CartProvider>
       <NavigationContainer>
         <Stack.Navigator>
@@ -49,6 +56,7 @@ export default function UserStack() {
   );
 }
 
+//Стили
 const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 22,

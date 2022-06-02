@@ -1,18 +1,23 @@
+// Импорт бибоилтек
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input } from 'react-native-elements';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
+// Используем фунцию авторизации из API firebase
 const auth = getAuth();
 
+// Функция создания страницы Входа
 const SignInScreen = () => {
+  // Состояние данных пользователя
   const [value, setValue] = React.useState({
     email: '',
     password: '',
     error: ''
   })
 
+  // Функция Входа
   async function signIn() {
     if (value.email === '' || value.password === '') {
       setValue({
@@ -23,6 +28,7 @@ const SignInScreen = () => {
     }
 
     try {
+      // Фунцкия Входа по email и паролю из api firebase
       await signInWithEmailAndPassword(auth, value.email, value.password);
     } catch (error:any) {
       setValue({
@@ -32,6 +38,7 @@ const SignInScreen = () => {
     }
   }
 
+  // Рендер страницы Входа
   return (
     <View style={styles.container}>
       {!!value.error && <View style={styles.error}><Text>{value.error}</Text></View>}
@@ -68,6 +75,8 @@ const SignInScreen = () => {
   );
 }
 
+
+// Стили
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -1,3 +1,5 @@
+// Конфигурация TypeScript
+// Почти не нужен, т.к. нигде толком не используется
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {

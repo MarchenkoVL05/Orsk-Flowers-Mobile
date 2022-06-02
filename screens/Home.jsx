@@ -1,21 +1,27 @@
+// Импорт реакта и библиотек
 import { useEffect, useState} from 'react';
 import { StyleSheet, Text, View, Pressable, FlatList } from 'react-native';
 import { useAuthentication } from '../utils/hooks/useAuthentication';
 import { signOut, getAuth } from 'firebase/auth';
 
+// Импорт компонентов
 import { Product } from '../components/Product.js';
 import { getProducts } from '../services/ProductsService';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
+// Функция автторизации из firebase API
 const auth = getAuth();
 
-
+// Создание и экспорт Домашней страницы 
 export default function HomeScreen({ navigation }) {
+  // Вытаскиваем данные пользователя
   const { user } = useAuthentication();
 
+  // Создаём состояние продукта (карточи товара)
   const [products, setProducts] = useState([]);
 
+  // Рендер списка карточек
   function renderProduct({item: product}) {
     return (
       <Product 
@@ -29,10 +35,12 @@ export default function HomeScreen({ navigation }) {
     );
   }
 
+  // Подписываемся на обновление списка товаров
   useEffect(() => {
     setProducts(getProducts());
   });
 
+  // Рендер Домашней страницы
   return (
     <View style={styles.wrapper}>
       <View style={styles.headerContainer}>
@@ -58,6 +66,7 @@ export default function HomeScreen({ navigation }) {
   );
 }
 
+// Стили
 const styles = StyleSheet.create({
   wrapper: {
     backgroundColor: '#ffe8ef'

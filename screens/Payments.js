@@ -1,13 +1,18 @@
+// Импорт реакта и реакт натив
 import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, SafeAreaView, StyleSheet, Pressable } from 'react-native';
-
-import email from 'react-native-email';
-
-import { useAuthentication } from '../utils/hooks/useAuthentication';
-import { CartContext } from '../CartContext';
 import { ScrollView } from 'react-native';
 
+// Импорт библиотеки
+import email from 'react-native-email';
+
+// Импорт функции useAuthentication и контекста корзины
+import { useAuthentication } from '../utils/hooks/useAuthentication';
+import { CartContext } from '../CartContext';
+
+// Создание и экспорт страницы Оформления заказа
 export default function Payments() {
+  // Создаём состояния
   const [name, onChangeName] = React.useState();
   const [phone, onChangePhone] = React.useState();
   const [adress, onChangeAdress] = React.useState();
@@ -22,6 +27,8 @@ export default function Payments() {
   const [pickup, setPickup] = React.useState(false);
   const [anon, setAnon] = React.useState(false);
 
+
+  // Создаём фунции изменения состояния
   function changingRadio() {
     setChecked(prevState => !prevState);
   }
@@ -38,6 +45,7 @@ export default function Payments() {
     setTransfer(prevState => !prevState);
   }
 
+  // Подписываемся на изменение галчек (Наличными курьеру или оплата картой)
   React.useEffect(() => {
     if (transfer) {
       setChecked(false);
@@ -50,10 +58,13 @@ export default function Payments() {
     }
   }, [checked]);
 
+  // Вытаскиваем данные пользователя
   const { user } = useAuthentication();
 
+  // Достаём из контекста необходимые нам функции 
   const {getProductsInCart, getItemsCount, getTotalPrice} = useContext(CartContext);
 
+  // Функция по отправке письма ( с использование библиотеки react-native-email )
   function callDelivery() {
     const to = ['Korotaevm97@gmail.com']
     email(to, {
@@ -74,6 +85,7 @@ export default function Payments() {
     }).catch(console.error)
   }
   
+  // Рендер страницы оформления заказа 
   return (
     <ScrollView style={styles.wrapper}>
       <SafeAreaView style={styles.container}>
@@ -159,6 +171,8 @@ export default function Payments() {
   )
 }
 
+
+// Стили
 const styles = StyleSheet.create({
   wrapper: {
     marginTop: 30,

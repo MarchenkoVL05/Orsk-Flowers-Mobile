@@ -1,9 +1,11 @@
+// Импорт реакта и библиотек
 import React from 'react';
 import { StyleSheet, Pressable, Text, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 
-
+// Создание Первой страницы при открытии приложения 
 const WelcomeScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
+  // Рендер Первой страницы
   return (
     <View style={styles.container}>
       <View style={styles.buttons}>
@@ -18,6 +20,7 @@ const WelcomeScreen: React.FC<StackScreenProps<any>> = ({ navigation }) => {
   );
 }
 
+// Стили
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -1,3 +1,4 @@
+// Импорт Реакта и функций
 import React, {useEffect, useState, useContext} from 'react';
 import {
   Text, 
@@ -15,21 +16,29 @@ import { CartContext } from '../CartContext';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
+
+// Импорт страницы Детали продукта
 export function ProductDetails({route}) {
+  // Устанавливаем состояние продукта
   const { productId } = route.params;
   const [product, setProduct] = useState({});
 
+  // Вытаскиваем функцию из контекста
   const { addItemToCart } = useContext(CartContext);
 
+  // Подписываемся на изменение продукста из списка
   useEffect(() => {
     setProduct(getProduct(productId));
   });
 
+  // Функция добавления в корзину
   function onAddToCart() {
     addItemToCart(product.id);
     Alert.alert('Добавлено в корзину!');
   }
 
+
+  // Рендер страницы Детали продукта
   return (
     <SafeAreaView style={styles.main}>
       <ScrollView>
@@ -49,6 +58,8 @@ export function ProductDetails({route}) {
     </SafeAreaView>
   );
 }
+
+// Стили
 const styles = StyleSheet.create({
   main: {
     justifyContent: 'center',

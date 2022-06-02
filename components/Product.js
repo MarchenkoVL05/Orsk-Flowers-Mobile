@@ -1,6 +1,10 @@
+//Импорт React + React Native
 import React from 'react';
 import {Text, Image, View, StyleSheet, TouchableOpacity} from 'react-native';
+
+//Объявление и экспорт компонента карточки товара
 export function Product({name, price, image, onPress}) {
+  //Рендер компонента
   return (
     <TouchableOpacity style={styles.card} onPress={onPress}>
       <Image
@@ -14,6 +18,8 @@ export function Product({name, price, image, onPress}) {
     </TouchableOpacity>
   );
 }
+
+//Стили 
 const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',

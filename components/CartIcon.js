@@ -1,8 +1,14 @@
+//Импорт библиотек React и React Native
 import React, { useContext } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+//Импорт контекста корзины
 import { CartContext } from '../CartContext';
+
+//Объявление и экспорт иконки Корзины
 export function CartIcon({navigation}) {
+  //Вытаскиваем из конткекста функцию getItemsCount, возвращает количество добавленных товаров
   const {getItemsCount} = useContext(CartContext);
+  //Рендер компонента
   return (
     <View style={styles.container}>
       <Text style={styles.text} 
@@ -13,6 +19,8 @@ export function CartIcon({navigation}) {
     </View>
   );
 }
+
+//Стили корзины
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 8,

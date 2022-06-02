@@ -1,5 +1,7 @@
+// Импортируем переменные среды
 import 'dotenv/config';
 
+// Конфигурания Expo в проекте 
 export default {
   "expo": {
     "name": "orsk-flowers-mobile",

@@ -1,16 +1,22 @@
+// Импорт реакта, библиотек и проводника корзины
 import React, { useEffect, useState, useContext } from 'react';
 import { View, Text, Button, FlatList, StyleSheet, Pressable, Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { CartContext } from '../CartContext';
 
+// Создание и экспорт страницы Корзины 
 export function Cart ({navigation}) {
+
+// Вытаскиваем из контекста товарты, добавленные в корзину и функции
 const {items, getItemsCount, getTotalPrice, deleteItemsFromCart} = useContext(CartContext);
 
+  // Фунцкия отображает в корзине пункт "Всего" + кнопка очистить корзину
   function Totals() {
     let [total, setTotal] = useState(0);
     useEffect(() => {
       setTotal(getTotalPrice());
     });
+    // Рендер
     return (
        <View>
           <View style={styles.cartLineTotal}>
@@ -22,6 +28,7 @@ const {items, getItemsCount, getTotalPrice, deleteItemsFromCart} = useContext(Ca
     );
   }
 
+  // Функция рендера в корзине добавленных товаров
   function renderItem({item}) {
     return (
        <View style={styles.cartLine}>
@@ -31,10 +38,12 @@ const {items, getItemsCount, getTotalPrice, deleteItemsFromCart} = useContext(Ca
     );
   }
 
+  // Функция по нажатию кнопки Оформить заказ (переброс на страницу оплаты)
   function acceptPayments() {
     navigation.navigate('Payments');
   }
 
+  // Рендер корзины
   return (
     <LinearGradient style={styles.gradient} colors={['#fff', '#b0b0b04d', '#fff']}>
       <View style={styles.mainView}>
@@ -53,6 +62,8 @@ const {items, getItemsCount, getTotalPrice, deleteItemsFromCart} = useContext(Ca
     </LinearGradient>
   );
 }
+
+// Стили
 const styles = StyleSheet.create({
   gradient: {
     flex: 1,
