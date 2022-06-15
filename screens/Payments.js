@@ -1,6 +1,6 @@
 // Импорт реакта и реакт натив
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, SafeAreaView, StyleSheet, Pressable } from 'react-native';
+import { View, Text, TextInput, SafeAreaView, StyleSheet, Pressable, Alert } from 'react-native';
 import { ScrollView } from 'react-native';
 
 // Импорт библиотеки
@@ -13,14 +13,14 @@ import { CartContext } from '../CartContext';
 // Создание и экспорт страницы Оформления заказа
 export default function Payments() {
   // Создаём состояния
-  const [name, onChangeName] = React.useState();
-  const [phone, onChangePhone] = React.useState();
-  const [adress, onChangeAdress] = React.useState();
-  const [time, onChangeTime] = React.useState();
-  const [comment, onChangeComment] = React.useState();
+  const [name, onChangeName] = React.useState('');
+  const [phone, onChangePhone] = React.useState('');
+  const [adress, onChangeAdress] = React.useState('');
+  const [time, onChangeTime] = React.useState('');
+  const [comment, onChangeComment] = React.useState('');
 
-  const [nameReceiver, onChangeNameReceiver] = React.useState();
-  const [phoneReceiver, onChangePhoneReceiver] = React.useState();
+  const [nameReceiver, onChangeNameReceiver] = React.useState('');
+  const [phoneReceiver, onChangePhoneReceiver] = React.useState('');
 
   const [checked, setChecked] = React.useState(true);
   const [transfer, setTransfer] = React.useState(false);
@@ -63,6 +63,32 @@ export default function Payments() {
 
   // Достаём из контекста необходимые нам функции 
   const {getProductsInCart, getItemsCount, getTotalPrice} = useContext(CartContext);
+
+  // Проверить поля формы
+  function checkForm() {
+    let sender = false;
+    if (anon || name.length > 3) {
+      sender = true;
+    }
+
+    let adressFilled = false;
+    if (pickup || adress.length > 3) {
+      adressFilled = true;
+    }
+
+    if (phone.length < 3 ||phone == 'underfiend' ||
+        time.length < 3 || time == 'underfiend' ||
+        comment.length < 3 ||comment == 'underfiend' ||
+        nameReceiver.length < 3 || nameReceiver == 'underfiend' ||
+        phoneReceiver.length < 3 || phoneReceiver == 'underfiend' || sender == false ||
+        adressFilled == false 
+        ) {
+          Alert.alert('Пожалуйста, заполните все поля');
+          return;
+    }
+
+    callDelivery();
+  }
 
   // Функция по отправке письма ( с использование библиотеки react-native-email )
   function callDelivery() {
@@ -163,7 +189,7 @@ export default function Payments() {
         </View>
         <Text style={[{fontSize: 18}]}>Visa: 4242 XXXX XXXX XX42</Text>
 
-        <Pressable style={styles.buyPress} onPress={callDelivery}>
+        <Pressable style={styles.buyPress} onPress={checkForm}>
                 <Text style={styles.buyText}>Вызвать курьера</Text>
         </Pressable>
       </SafeAreaView>

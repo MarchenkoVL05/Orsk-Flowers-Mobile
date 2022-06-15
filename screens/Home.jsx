@@ -60,6 +60,9 @@ export default function HomeScreen({ navigation }) {
         keyExtractor={(item) => item.id.toString()}
         data={products}
         renderItem={renderProduct}
+        columnWrapperStyle={{justifyContent: 'space-between'}}
+        numColumns={2}
+        key={'key'}
         />
       </View>
     </View>
