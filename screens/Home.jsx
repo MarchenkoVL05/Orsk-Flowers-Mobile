@@ -72,11 +72,11 @@ export default function HomeScreen({ navigation }) {
 // Стили
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: '#ffe8ef'
+    backgroundColor: '#ffe8ef',
+    flex: 1
   },
 
   headerContainer: {
-    flex: 1,
     backgroundColor: '#fff',
     alignItems: 'flex-end',
     padding: 10
@@ -114,5 +114,6 @@ const styles = StyleSheet.create({
   mainContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    flex: 1,
   }
 });
